@@ -1,2 +1,3 @@
 # LLM-Project-im-University
-Hallo Jack and My
+
+This Project is a GEN AI Project using LangChain, Google Palm In Ed-Tech Industry
