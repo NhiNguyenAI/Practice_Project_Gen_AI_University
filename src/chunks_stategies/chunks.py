@@ -53,7 +53,7 @@ def rag(chunks, collection_name):
 #--------------------------------------------------------------------------------#
 #                            Splitting                                           #
 #--------------------------------------------------------------------------------#
-# 1. Character Text Splitting
+# 1.1 Character Text Splitting
 print("#### Character Text Splitting ####")
 
 text = "Text splitting in LangChain is a critical feature that facilitates the division of large texts into smaller, manageable segments. "
@@ -70,8 +70,18 @@ print(documents)
 # Call the rag function with the documents
 rag(documents, "test_collection")
 
-# 2 Automatic Text Slitting 
+# 1.2 Automatic Text Slitting 
 
 text_splitter = CharacterTextSplitter(chunk_size = 35, chunk_overlap=0, separator='', strip_whitespace=False)
 documents = text_splitter.create_documents([text])
 print(documents)
+
+# 2. Recursive Character Text Splitting
+print("#### Recursive Character Text Splitting ####")
+
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+with open('../../data/chunks/content.txt', 'r', encoding='utf-8') as file:
+    text = file.read()
+
+text_splitter = RecursiveCharacterTextSplitter(chunk_size = 65, chunk_overlap=0) # ["\n\n", "\n", " ", ""] 65,450
+print(text_splitter.create_documents([text])) 
