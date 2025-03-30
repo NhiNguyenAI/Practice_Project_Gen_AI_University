@@ -21,6 +21,7 @@ from langchain_community.embeddings.ollama import OllamaEmbeddings
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
+from langchain.text_splitter import CharacterTextSplitter
 
 local_llm = ChatOllama(model="mistral")
 
@@ -68,3 +69,9 @@ print(documents)
 
 # Call the rag function with the documents
 rag(documents, "test_collection")
+
+# 2 Automatic Text Slitting 
+
+text_splitter = CharacterTextSplitter(chunk_size = 35, chunk_overlap=0, separator='', strip_whitespace=False)
+documents = text_splitter.create_documents([text])
+print(documents)
