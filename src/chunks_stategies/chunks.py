@@ -34,6 +34,11 @@ from langchain.chains import create_extraction_chain_pydantic
 from langchain_core.pydantic_v1 import BaseModel
 from langchain import hub
 from agentic_chunker import AgenticChunker
+from langchain.text_splitter import MarkdownTextSplitter
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain.text_splitter import RecursiveCharacterTextSplitter, Language
+from langchain.text_splitter import PythonCodeTextSplitter
+
 
 local_llm = ChatOllama(model="mistral")
 
@@ -93,7 +98,7 @@ print(documents)
 #--------------------------------------------------------------------------------#
 
 
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+
 with open('../../data/chunks/content.txt', 'r', encoding='utf-8') as file:
     text = file.read()
 
@@ -105,7 +110,7 @@ print(text_splitter.create_documents([text]))
 #--------------------------------------------------------------------------------#
 
 # Document Specific Splitting - Markdown
-from langchain.text_splitter import MarkdownTextSplitter
+
 splitter = MarkdownTextSplitter(chunk_size = 40, chunk_overlap=0)
 markdown_text = """
 # Fun in California
@@ -125,7 +130,7 @@ Go to Yosemite
 print(splitter.create_documents([markdown_text]))
 
 # Document Specific Splitting - Python
-from langchain.text_splitter import PythonCodeTextSplitter
+
 python_text = """
 class Person:
   def __init__(self, name, age):
@@ -141,7 +146,7 @@ python_splitter = PythonCodeTextSplitter(chunk_size=100, chunk_overlap=0)
 print(python_splitter.create_documents([python_text]))
 
 # Document Specific Splitting - Javascript
-from langchain.text_splitter import RecursiveCharacterTextSplitter, Language
+
 javascript_text = """
 // Function is called, the return value will end up in x
 let x = myFunction(4, 3);
@@ -201,7 +206,15 @@ print("#### Agentic Chunking ####")
 ac = AgenticChunker()
 ac.add_propositions(text_propositions)
 print(ac.pretty_print_chunks())
-chunks = ac.get_chunks(get_type='list_of_strings')
+
+#--------------------------------------------------------------------------------#
+#                            Agentic Chunking for Optimised Grouping             #
+#--------------------------------------------------------------------------------#
+ac = AgenticChunker()
+ac.add_propositions(text_propositions)
+print(ac.pretty_print_chunks())
+chunks = ac.get_chunks(get_type = 'List of strings')
 print(chunks)
 documents = [Document(page_content=chunk, metadata={"source": "local"}) for chunk in chunks]
-rag(documents, "agentic-chunks")
+rag(documents, "agentic-chunks-optimised")
+
