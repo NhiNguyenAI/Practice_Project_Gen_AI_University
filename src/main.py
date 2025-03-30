@@ -14,12 +14,14 @@
 #--------------------------------------------------------------------------------#
 #                                 Libraries                                      #
 #--------------------------------------------------------------------------------#
-from langchain.document_loaders import TextLoader
+from langchain.document_loaders import UnstructuredURLLoader
 
 #--------------------------------------------------------------------------------#
-#                                 Load the Text                                  #
+#                                 Load the urls                                  #
 #--------------------------------------------------------------------------------#
-loader = TextLoader("../../data/test/test.docx")
+urls_list = ["https://www.hs-fulda.de/en/", 
+             "https://www.hs-fulda.de/en/studyprogrammes"]
+loader = UnstructuredURLLoader(urls = urls_list)
 data = loader.load()
 
 #--------------------------------------------------------------------------------#
