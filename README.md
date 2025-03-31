@@ -25,7 +25,8 @@ UniBot is a user-friendly news research tool designed for effortless information
 3. Install the required dependencies using pip:
 
 ```bash
-  pip install -r requirements.txt
+  pip install -U langchain langchain-community unstructured faiss-cpu sentence-transformers ollama
+
 ```
 4.Set up your OpenAI API key by creating a .env file in the project root and adding your API
 
